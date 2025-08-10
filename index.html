@@ -522,15 +522,8 @@
         };
 
         function App() {
-            const [language, setLanguage] = React.useState(() => {
-                const savedLanguage = localStorage.getItem('language');
-                return savedLanguage || 'en';
-            });
+            const [language, setLanguage] = React.useState('en');
             const [activeCategory, setActiveCategory] = React.useState('featured');
-
-            React.useEffect(() => {
-                localStorage.setItem('language', language);
-            }, [language]);
 
             return (
                 <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory }}>
@@ -705,19 +698,21 @@
             return (
                 <div className="relative bg-white overflow-hidden">
                     <div className="max-w-7xl mx-auto">
-                        <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
+                            <main className="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                                 <div className="sm:text-center lg:text-left">
-                                    <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                                        <span className="block xl:inline">{content[language].title}</span>
-                                    </h1>
-                                    <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                                        {content[language].description}
-                                    </p>
-                                    <div className="mt-5 sm:mt-8">
-                                        <a href="#contact" className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-sm text-white bg-red-600 hover:bg-red-700">
-                                            {content[language].cta.contact}
-                                        </a>
+                                    <div className="lg:max-w-xl lg:pr-12">
+                                        <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                            <span className="block xl:inline">{content[language].title}</span>
+                                        </h1>
+                                        <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl">
+                                            {content[language].description}
+                                        </p>
+                                        <div className="mt-5 sm:mt-8">
+                                            <a href="#contact" className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-sm text-white bg-red-600 hover:bg-red-700">
+                                                {content[language].cta.contact}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </main>
@@ -741,7 +736,7 @@
 
             return (
                 <div className="py-16 bg-white" id="products">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900">
                                 {language === 'en' ? 'Enterprise Computer Vision Platform' : 'Nền tảng Computer Vision Doanh nghiệp'}
@@ -807,7 +802,7 @@
 
             return (
                 <div className="bg-gray-50 py-24">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center">
                             <h2 className="text-3xl font-extrabold text-gray-900">
                                 {content[language].title}
@@ -1161,7 +1156,7 @@ ${formData.message}
 
             return (
                 <div className="py-16 bg-gray-50" id="solutions">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900">
                                 {content[language].title}
@@ -1282,7 +1277,7 @@ ${formData.message}
 
             return (
                 <div id="about" className="py-24 bg-gray-50">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="lg:text-center">
                             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                                 {content[language].title}
@@ -1388,7 +1383,7 @@ ${formData.message}
 
             return (
                 <footer className="bg-white pt-16 pb-12">
-                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Logo */}
                         <div className="mb-12 text-center">
                             <img 
@@ -1404,7 +1399,7 @@ ${formData.message}
                                 <div className="space-y-3 text-xs text-gray-600">
                                     <div>
                                         <p className="font-medium mb-1">{content[language].contact.office}</p>
-                                        <p className="max-w-[180px] leading-relaxed">{content[language].contact.address}</p>
+                                        <p className="max-w-[240px] leading-relaxed">{content[language].contact.address}</p>
                                     </div>
                                     <div>
                                         <p className="font-medium mb-1">Phone:</p>
