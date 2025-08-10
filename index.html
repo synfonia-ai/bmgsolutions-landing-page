@@ -522,8 +522,23 @@
         };
 
         function App() {
-            const [language, setLanguage] = React.useState('en');
+            const [language, setLanguage] = React.useState(() => {
+                try {
+                    const savedLanguage = localStorage.getItem('preferred_language');
+                    return savedLanguage || 'en';
+                } catch {
+                    return 'en';
+                }
+            });
             const [activeCategory, setActiveCategory] = React.useState('featured');
+
+            React.useEffect(() => {
+                try {
+                    localStorage.setItem('preferred_language', language);
+                } catch (error) {
+                    console.warn('Failed to save language preference:', error);
+                }
+            }, [language]);
 
             return (
                 <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory }}>
