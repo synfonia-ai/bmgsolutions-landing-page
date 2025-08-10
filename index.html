@@ -522,8 +522,15 @@
         };
 
         function App() {
-            const [language, setLanguage] = React.useState('en');
+            const [language, setLanguage] = React.useState(() => {
+                const savedLanguage = localStorage.getItem('language');
+                return savedLanguage || 'en';
+            });
             const [activeCategory, setActiveCategory] = React.useState('featured');
+
+            React.useEffect(() => {
+                localStorage.setItem('language', language);
+            }, [language]);
 
             return (
                 <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory }}>
@@ -734,7 +741,7 @@
 
             return (
                 <div className="py-16 bg-white" id="products">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900">
                                 {language === 'en' ? 'Enterprise Computer Vision Platform' : 'Nền tảng Computer Vision Doanh nghiệp'}
@@ -800,7 +807,7 @@
 
             return (
                 <div className="bg-gray-50 py-24">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
                         <div className="text-center">
                             <h2 className="text-3xl font-extrabold text-gray-900">
                                 {content[language].title}
@@ -1154,7 +1161,7 @@ ${formData.message}
 
             return (
                 <div className="py-16 bg-gray-50" id="solutions">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900">
                                 {content[language].title}
@@ -1275,7 +1282,7 @@ ${formData.message}
 
             return (
                 <div id="about" className="py-24 bg-gray-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
                         <div className="lg:text-center">
                             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                                 {content[language].title}
@@ -1381,7 +1388,7 @@ ${formData.message}
 
             return (
                 <footer className="bg-white pt-16 pb-12">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
                         {/* Logo */}
                         <div className="mb-12 text-center">
                             <img 
@@ -1397,7 +1404,7 @@ ${formData.message}
                                 <div className="space-y-3 text-xs text-gray-600">
                                     <div>
                                         <p className="font-medium mb-1">{content[language].contact.office}</p>
-                                        <p className="max-w-[240px] leading-relaxed">{content[language].contact.address}</p>
+                                        <p className="max-w-[180px] leading-relaxed">{content[language].contact.address}</p>
                                     </div>
                                     <div>
                                         <p className="font-medium mb-1">Phone:</p>
