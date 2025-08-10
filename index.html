@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMG Investment - Consulting JSC - Professional Tech Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ec1c2a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --bg-light: #f5f6f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Professional typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: 40px; line-height: 1.2; }
+        h2 { font-size: 32px; line-height: 1.25; }
+        h3 { font-size: 24px; line-height: 1.3; }
+        h4 { font-size: 20px; line-height: 1.4; }
+        h5 { font-size: 18px; line-height: 1.5; }
+        h6 { font-size: 16px; line-height: 1.5; }
+
+        .text-base { font-size: 14px; line-height: 1.6; }
+        .text-lg { font-size: 16px; line-height: 1.6; }
+        .text-xl { font-size: 18px; line-height: 1.6; }
+        .text-2xl { font-size: 20px; line-height: 1.4; }
+        .text-3xl { font-size: 24px; line-height: 1.3; }
+        .text-4xl { font-size: 32px; line-height: 1.25; }
+
+        /* Professional buttons */
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover, .btn-outline:hover {
+            background-color: #d91827;
+            border-color: #d91827;
+        }
+
+        /* Professional cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        .nav-item {
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ec1c2a;
+            transition: width 0.2s ease;
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        .nav-item.active {
+            color: #ec1c2a;
+        }
+        
+        .nav-item.active::after {
+            width: 100%;
+        }
+        
+        .top-bar {
+            font-size: 0.875rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .language-switch {
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .language-switch:hover {
+            background-color: #f3f4f6;
+        }
+        .service-card {
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        .service-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .category-tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .category-tab.active {
+            border-bottom-color: #ec1c2a;
+            color: #ec1c2a;
+        }
+        .learn-more {
+            color: #ec1c2a;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const LanguageContext = React.createContext();
+        
+        const serviceCategories = {
+            en: [
+                {
+                    id: 'featured',
+                    name: 'Featured Products',
+                    title: 'Featured Products'
+                },
+                {
+                    id: 'digital',
+                    name: 'Digital Recognition',
+                    title: 'Digital Recognition'
+                },
+                {
+                    id: 'face',
+                    name: 'Face Recognition',
+                    title: 'Face Recognition'
+                },
+                {
+                    id: 'image',
+                    name: 'Image Processing',
+                    title: 'Image Processing'
+                }
+            ],
+            vi: [
+                {
+                    id: 'featured',
+                    name: 'Sản phẩm tiêu biểu',
+                    title: 'Sản phẩm tiêu biểu'
+                },
+                {
+                    id: 'digital',
+                    name: 'Nhận diện ký tự',
+                    title: 'Nhận diện ký tự'
+                },
+                {
+                    id: 'face',
+                    name: 'Nhận diện khuôn mặt',
+                    title: 'Nhận diện khuôn mặt'
+                },
+                {
+                    id: 'image',
+                    name: 'Xử lý hình ảnh',
+                    title: 'Xử lý hình ảnh'
+                }
+            ]
+        };
+
+        const serviceProducts = {
+            en: {
+                featured: [
+                    {
+                        icon: '📄',
+                        title: 'ID Document Recognition',
+                        description: 'Extract information from ID documents: 9-digit ID, 12-digit ID, Citizen Card, Chip-based ID, Driver\'s License.'
+                    },
+                    {
+                        icon: '🚗',
+                        title: 'Vehicle Registration Recognition',
+                        description: 'Extract information from vehicle registration documents for motorcycles and cars.'
+                    },
+                    {
+                        icon: '👤',
+                        title: 'Face Matching',
+                        description: 'Compare selfie photos with ID document photos to verify if they belong to the same person.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Face Search',
+                        description: 'From a portrait photo input, search within a photo collection and return a list of matching photos along with their associated metadata.'
+                    },
+                    {
+                        icon: '📝',
+                        title: 'Text Recognition',
+                        description: 'Convert document images to text format for content search and document retrieval.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Table Data Recognition',
+                        description: 'Convert tabular data images such as grade sheets, prescriptions, financial reports into Excel file format.'
+                    }
+                ],
+                digital: [
+                    {
+                        icon: '📄',
+                        title: 'Vietnamese ID Card',
+                        description: 'Extract information from various Vietnamese ID cards: 9-digit ID, 12-digit ID, Citizen Card, and Chip-based Citizen Card.'
+                    },
+                    {
+                        icon: '🛂',
+                        title: 'Vietnamese Passport',
+                        description: 'Extract Vietnamese information from Vietnamese passport images.'
+                    },
+                    {
+                        icon: '🚗',
+                        title: 'Driver\'s License',
+                        description: 'Extract information from driver\'s license images.'
+                    },
+                    {
+                        icon: '📋',
+                        title: 'Vehicle Registration',
+                        description: 'Extract information from motorcycle and car registration documents.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Vehicle Inspection',
+                        description: 'Extract information from vehicle inspection certificates.'
+                    },
+                    {
+                        icon: '🚙',
+                        title: 'License Plate',
+                        description: 'Recognize and extract license plate numbers.'
+                    },
+                    {
+                        icon: '👶',
+                        title: 'Birth Certificate',
+                        description: 'Extract information from birth certificates, including both printed and handwritten text.'
+                    },
+                    {
+                        icon: '🏢',
+                        title: 'Business Registration',
+                        description: 'Extract business information and legal representatives from business registration certificates.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Table Data',
+                        description: 'Convert tabular data images such as grade sheets, prescriptions, financial reports into Excel file format.'
+                    },
+                    {
+                        icon: '🌐',
+                        title: 'International Passport',
+                        description: 'Recognize and analyze MRZ code to extract information from any passport images.'
+                    },
+                    {
+                        icon: '🪪',
+                        title: 'Myanmar ID Card',
+                        description: 'Extract personal information from Myanmar ID Card images.'
+                    },
+                    {
+                        icon: '🪪',
+                        title: 'Cambodia ID Card',
+                        description: 'Extract personal information from Cambodian ID Card images.'
+                    },
+                    {
+                        icon: '📝',
+                        title: 'Text Recognition',
+                        description: 'Convert document images to text format for content search and document retrieval.'
+                    }
+                ],
+                face: [
+                    {
+                        icon: '🔄',
+                        title: 'Identity Verification',
+                        description: 'Compare selfie photos with ID document photos to verify if they belong to the same person.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Face Search',
+                        description: 'From a portrait photo input, search within a photo collection and return a list of matching photos along with their associated metadata.'
+                    },
+                    {
+                        icon: '🖼️',
+                        title: 'Avatar Generation',
+                        description: 'Automatically detect faces and create custom-sized avatar images.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Face Analysis',
+                        description: 'Analyze gender, age, and emotions from facial images.'
+                    },
+                    {
+                        icon: '👥',
+                        title: 'Face Clustering',
+                        description: 'Automatically detect and group similar faces in a photo collection.'
+                    }
+                ],
+                image: [
+                    {
+                        icon: '✂️',
+                        title: 'Smart Crop',
+                        description: 'Automatically crop images while preserving the main subject.'
+                    },
+                    {
+                        icon: '🏷️',
+                        title: 'Auto Tagging',
+                        description: 'Automate the image tagging process.'
+                    }
+                ]
+            },
+            vi: {
+                featured: [
+                    {
+                        icon: '📄',
+                        title: 'Nhận diện giấy tờ tùy thân',
+                        description: 'Trích xuất thông tin từ ảnh giấy tờ tùy thân: CMND 9 số, CMND 12 số, Căn cước công dân, CCCD gắn chip, Giấy phép lái xe.'
+                    },
+                    {
+                        icon: '🚗',
+                        title: 'Nhận diện đăng ký xe',
+                        description: 'Trích xuất thông tin giấy đăng ký xe máy, giấy đăng ký xe ô tô.'
+                    },
+                    {
+                        icon: '👤',
+                        title: 'So khớp khuôn mặt',
+                        description: 'So sánh ảnh selfie và ảnh chân dung trên các loại giấy tờ tùy để xác minh có cùng một người hay không.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Tìm kiếm khuôn mặt',
+                        description: 'Từ ảnh chân dung đầu vào, tìm kiếm trong một tập ảnh và trả về danh sách các ảnh trùng khớp với ảnh đầu vào và metadata được lưu gắn kèm với các ảnh đó.'
+                    },
+                    {
+                        icon: '📝',
+                        title: 'Nhận diện văn bản',
+                        description: 'Chuyển đổi hình ảnh của văn bản sang dạng text cho phép tra cứu nội dung tài liệu.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Nhận diện dữ liệu bảng',
+                        description: 'Chuyển đổi hình ảnh của các dữ liệu dạng bảng như bảng điểm, đơn thuốc, báo cáo tài chính ... thành dữ liệu file excel.'
+                    }
+                ],
+                digital: [
+                    {
+                        icon: '📄',
+                        title: 'Chứng minh nhân dân',
+                        description: 'Nhận diện thông tin từ hình ảnh của các loại CMND: CMND 9 số, CMND 12 số, Căn cước công dân, CCCD gắn chip.'
+                    },
+                    {
+                        icon: '🛂',
+                        title: 'Hộ chiếu Việt Nam',
+                        description: 'Nhận diện thông tin tiếng Việt từ hình ảnh của hộ chiếu Việt Nam.'
+                    },
+                    {
+                        icon: '🚗',
+                        title: 'Giấp phép lái xe',
+                        description: 'Nhận diện thông tin từ hình ảnh của giấy phép lái xe.'
+                    },
+                    {
+                        icon: '📋',
+                        title: 'Giấy đăng ký xe',
+                        description: 'Nhận diện thông tin từ giấy đăng ký xe máy, ô tô.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Giấy đăng kiểm xe',
+                        description: 'Nhận diện thông tin từ giấy đăng kiểm xe ô tô.'
+                    },
+                    {
+                        icon: '🚙',
+                        title: 'Biển số xe',
+                        description: 'Nhận diện biển số xe.'
+                    },
+                    {
+                        icon: '👶',
+                        title: 'Giấy khai sinh',
+                        description: 'Nhận diện thông tin từ hình ảnh giấy khai sinh gồm cả chữ in và chữ viết tay.'
+                    },
+                    {
+                        icon: '🏢',
+                        title: 'Giấy đăng ký doanh nghiệp',
+                        description: 'Nhận diện thông tin doanh nghiệp và người đại diện pháp luật từ hình ảnh của giấy chứng nhận đăng ký doanh nghiệp.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Dữ liệu dạng bảng',
+                        description: 'Chuyển đổi hình ảnh của các dữ liệu dạng bảng như bảng điểm, đơn thuốc, báo cáo tài chính ... thành dữ liệu file excel.'
+                    },
+                    {
+                        icon: '🌐',
+                        title: 'Hộ chiếu quốc tế',
+                        description: 'Nhận diện và phân tích mã MRZ để trả về thông tin từ hình ảnh của hộ chiếu bất kì.'
+                    },
+                    {
+                        icon: '🪪',
+                        title: 'ID Card Myanmar',
+                        description: 'Nhận diện thông tin cá nhân từ hình ảnh của ID Card Myanmar.'
+                    },
+                    {
+                        icon: '🪪',
+                        title: 'ID Card Cambodia',
+                        description: 'Nhận diện thông tin cá nhân từ hình ảnh của ID Card Campuchia.'
+                    },
+                    {
+                        icon: '📝',
+                        title: 'Nhận diện văn bản',
+                        description: 'Chuyển đổi hình ảnh của văn bản sang dạng text cho phép tra cứu nội dung tài liệu.'
+                    }
+                ],
+                face: [
+                    {
+                        icon: '🔄',
+                        title: 'Xác minh danh tính',
+                        description: 'So sánh ảnh selfie và ảnh chân dung trên các loại giấy tờ tùy để xác minh có cùng một người hay không.'
+                    },
+                    {
+                        icon: '🔍',
+                        title: 'Tìm kiếm khuôn mặt',
+                        description: 'Từ ảnh chân dung đầu vào, tìm kiếm trong một tập ảnh và trả về danh sách các ảnh trùng khớp với ảnh đầu vào và metadata được lưu gắn kèm với các ảnh đó.'
+                    },
+                    {
+                        icon: '🖼️',
+                        title: 'Tạo ảnh đại diện',
+                        description: 'Tự động nhận diện khuôn mặt và tạo ảnh đại diện với kích thước tùy biến.'
+                    },
+                    {
+                        icon: '📊',
+                        title: 'Phân tích khuôn mặt',
+                        description: 'Phân tích giới tính, độ tuổi, cảm xúc từ hình ảnh chứa khuôn mặt.'
+                    },
+                    {
+                        icon: '👥',
+                        title: 'Phân cụm khuôn mặt',
+                        description: 'Tự động nhận diện và phân nhóm các khuôn mặt giống nhau trong một tập ảnh.'
+                    }
+                ],
+                image: [
+                    {
+                        icon: '✂️',
+                        title: 'Smart crop',
+                        description: 'Tự động cắt hình ảnh của bạn một cách thích hợp giúp giữ lại chủ thể chính của hình ảnh.'
+                    },
+                    {
+                        icon: '🏷️',
+                        title: 'Tagging',
+                        description: 'Tự động hóa quy trình gắn thẻ hình ảnh của bạn.'
+                    }
+                ]
+            }
+        };
+
+        function App() {
+            const [language, setLanguage] = React.useState('en');
+            const [activeCategory, setActiveCategory] = React.useState('featured');
+
+            return (
+                <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory }}>
+                                    <div className="min-h-screen">
+                    <Navbar />
+                    <Hero />
+                    <Services />
+                    <IndustryApplications />
+                    <AboutUs />
+                    <Clients />
+                    <Contact />
+                    <Footer />
+                </div>
+                </LanguageContext.Provider>
+            );
+        }
+
+        function Navbar() {
+            const { language, setLanguage } = React.useContext(LanguageContext);
+            
+            const content = {
+                en: {
+                    contact: {
+                        phone: '0904456555'
+                    },
+                    nav: {
+                        home: 'Home',
+                        products: 'Products',
+                        solutions: 'Solutions',
+                        about: 'About Us'
+                    }
+                },
+                vi: {
+                    contact: {
+                        phone: '0904456555'
+                    },
+                    nav: {
+                        home: 'Trang chủ',
+                        products: 'Sản phẩm',
+                        solutions: 'Giải pháp',
+                        about: 'Về chúng tôi'
+                    }
+                }
+            };
+
+            return (
+                <header className="bg-white">
+                    {/* Top Bar */}
+                    <div className="bg-white border-b border-gray-100">
+                        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+                            <div className="flex justify-end h-10 items-center text-sm">
+
+                                <div className="flex items-center space-x-2 text-sm">
+                                    <button 
+                                        className={`px-2 py-1 transition-colors ${language === 'en' ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}
+                                        onClick={() => setLanguage('en')}
+                                    >
+                                        EN
+                                    </button>
+                                    <span className="text-gray-300">|</span>
+                                    <button 
+                                        className={`px-2 py-1 transition-colors ${language === 'vi' ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}
+                                        onClick={() => setLanguage('vi')}
+                                    >
+                                        VI
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main Navigation */}
+                    <nav className="bg-white">
+                        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+                            <div className="flex justify-between h-20">
+                                <div className="flex items-center">
+                                    <a href="/" className="flex-shrink-0">
+                                        <img 
+                                            src="/logo.png"
+                                            alt="BMG Solutions"
+                                            className="h-12 w-auto"
+                                        />
+                                    </a>
+                                </div>
+                                <div className="flex items-center space-x-8">
+                                    <a 
+                                        href="/" 
+                                        className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {content[language].nav.home}
+                                    </a>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('products');
+                                            if (element) {
+                                                const headerOffset = 100;
+                                                const elementPosition = element.getBoundingClientRect().top;
+                                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                window.scrollTo({
+                                                    top: offsetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                        }}
+                                        className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {content[language].nav.products}
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('solutions');
+                                            if (element) {
+                                                const headerOffset = 100;
+                                                const elementPosition = element.getBoundingClientRect().top;
+                                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                window.scrollTo({
+                                                    top: offsetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                        }}
+                                        className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {content[language].nav.solutions}
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('about');
+                                            if (element) {
+                                                const headerOffset = 100;
+                                                const elementPosition = element.getBoundingClientRect().top;
+                                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                window.scrollTo({
+                                                    top: offsetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                        }}
+                                        className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {content[language].nav.about}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            );
+        }
+
+        function Hero() {
+            const { language } = React.useContext(LanguageContext);
+            const content = {
+                en: {
+                    title: 'Enterprise Computer Vision & AI Solutions',
+                    subtitle: 'Empowering businesses with advanced vision intelligence',
+                    description: 'Delivering state-of-the-art computer vision solutions that transform visual data into actionable business insights. From facial recognition to visual analytics, we help enterprises harness the power of AI.',
+                    cta: {
+                        contact: 'Contact Us'
+                    }
+                },
+                vi: {
+                    title: 'Giải Pháp Computer Vision & AI Doanh Nghiệp',
+                    subtitle: 'Nâng tầm doanh nghiệp với trí tuệ thị giác tiên tiến',
+                    description: 'Cung cấp giải pháp computer vision tiên tiến chuyển đổi dữ liệu hình ảnh thành thông tin kinh doanh có giá trị. Từ nhận diện khuôn mặt đến phân tích hình ảnh, chúng tôi giúp doanh nghiệp khai thác sức mạnh của AI.',
+                    cta: {
+                        contact: 'Liên hệ'
+                    }
+                }
+            };
+
+            return (
+                <div className="relative bg-white overflow-hidden">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                                <div className="sm:text-center lg:text-left">
+                                    <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                        <span className="block xl:inline">{content[language].title}</span>
+                                    </h1>
+                                    <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                                        {content[language].description}
+                                    </p>
+                                    <div className="mt-5 sm:mt-8">
+                                        <a href="#contact" className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-sm text-white bg-red-600 hover:bg-red-700">
+                                            {content[language].cta.contact}
+                                        </a>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                    </div>
+                    <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                        <img
+                            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                            src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+                            alt="Team working on AI solutions"
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        function Services() {
+            const { language, activeCategory, setActiveCategory } = React.useContext(LanguageContext);
+            const categories = serviceCategories[language];
+            const products = serviceProducts[language][activeCategory];
+
+            return (
+                <div className="py-16 bg-white" id="products">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-gray-900">
+                                {language === 'en' ? 'Enterprise Computer Vision Platform' : 'Nền tảng Computer Vision Doanh nghiệp'}
+                            </h2>
+                            <p className="mt-4 text-lg text-gray-500">
+                                {language === 'en' ? 'Comprehensive suite of AI-powered vision solutions optimized for enterprise deployment' : 'Bộ giải pháp thị giác máy tính toàn diện được tối ưu hóa cho triển khai doanh nghiệp'}
+                            </p>
+                        </div>
+                        <div className="flex border-b mb-8">
+                            {categories.map(category => (
+                                <div
+                                    key={category.id}
+                                    className={`category-tab text-sm ${activeCategory === category.id ? 'active font-bold' : ''}`}
+                                    onClick={() => setActiveCategory(category.id)}
+                                >
+                                    {category.name}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                            {products.map((product, index) => (
+                                <div key={index} className="service-card">
+                                    <div className="service-icon">
+                                        <span className="text-lg text-red-600">{product.icon}</span>
+                                    </div>
+                                    <h3 className="text-sm font-bold text-gray-900 mb-2">{product.title}</h3>
+                                    <p className="text-xs text-gray-600 leading-relaxed">{product.description}</p>
+                                    <button 
+                                        onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                                        className="mt-3 text-xs text-red-600 hover:text-red-700 transition-colors"
+                                    >
+                                        {language === 'en' ? 'Learn more' : 'Tìm hiểu thêm'}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Clients() {
+            const { language } = React.useContext(LanguageContext);
+            const content = {
+                en: {
+                    title: 'Trusted by Industry Leaders',
+                    subtitle: 'Companies that trust our expertise'
+                },
+                vi: {
+                    title: 'Được Tin Tưởng Bởi Các Doanh Nghiệp Hàng Đầu',
+                    subtitle: 'Các công ty tin tưởng vào chuyên môn của chúng tôi'
+                }
+            };
+
+            const clients = [
+                { name: 'VPBank', logo: '🏦' },
+                { name: 'Techcombank', logo: '🏦' },
+                { name: 'VIB', logo: '🏦' },
+                { name: 'MoMo', logo: '📱' },
+                { name: 'ZaloPay', logo: '📱' },
+                { name: 'VNPay', logo: '💳' }
+            ];
+
+            return (
+                <div className="bg-gray-50 py-24">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h2 className="text-3xl font-extrabold text-gray-900">
+                                {content[language].title}
+                            </h2>
+                            <p className="mt-4 text-lg text-gray-500">
+                                {content[language].subtitle}
+                            </p>
+                        </div>
+                        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
+                            {clients.map((client, index) => (
+                                <div key={index} className="col-span-1 flex justify-center">
+                                    <div className="text-center">
+                                        <div className="text-4xl mb-2">{client.logo}</div>
+                                        <div className="text-sm font-medium text-gray-900">{client.name}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Contact() {
+            const { language } = React.useContext(LanguageContext);
+            const [formData, setFormData] = React.useState({
+                name: '',
+                company: '',
+                email: '',
+                phone: '',
+                help: '',
+                message: ''
+            });
+            const [errors, setErrors] = React.useState({});
+            const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+            const content = {
+                en: {
+                    title: 'Contact Us',
+                    subtitle: 'BMG Investment - Consulting JSC is always ready to listen to your requirements. Contact us for support.',
+                    name: 'Full Name',
+                    company: 'Company Name',
+                    email: 'Email',
+                    phone: 'Phone Number',
+                    help: 'How can we help you?',
+                    message: 'Message',
+                    submit: 'Send',
+                    required: 'Required',
+                    emailInvalid: 'Invalid email address',
+                    phoneInvalid: 'Invalid phone number'
+                },
+                vi: {
+                    title: 'Liên hệ ngay với chúng tôi',
+                    subtitle: 'BMG Investment - Consulting JSC luôn sẵn sàng lắng nghe yêu cầu từ quý khách hàng. Liên hệ với chúng tôi để nhận được hỗ trợ.',
+                    name: 'Họ và tên',
+                    company: 'Tên công ty',
+                    email: 'Email',
+                    phone: 'Số điện thoại',
+                    help: 'Chúng tôi có thể giúp đỡ gì cho bạn?',
+                    message: 'Tin nhắn',
+                    submit: 'Gửi',
+                    required: 'Bắt buộc',
+                    emailInvalid: 'Email không hợp lệ',
+                    phoneInvalid: 'Số điện thoại không hợp lệ'
+                }
+            };
+
+            const validateForm = () => {
+                const newErrors = {};
+                
+                // Required fields
+                if (!formData.name) newErrors.name = content[language].required;
+                if (!formData.email) newErrors.email = content[language].required;
+                if (!formData.phone) newErrors.phone = content[language].required;
+                if (!formData.help) newErrors.help = content[language].required;
+                if (!formData.message) newErrors.message = content[language].required;
+                
+                // Email validation
+                if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+                    newErrors.email = content[language].emailInvalid;
+                }
+                
+                // Phone validation
+                if (formData.phone && !/^[0-9+\-\s()]{8,}$/.test(formData.phone)) {
+                    newErrors.phone = content[language].phoneInvalid;
+                }
+
+                setErrors(newErrors);
+                return Object.keys(newErrors).length === 0;
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+
+                if (validateForm()) {
+                    const subject = `Contact from ${formData.name} - ${formData.company || 'No Company'}`;
+                    const body = `
+Name: ${formData.name}
+Company: ${formData.company}
+Email: ${formData.email}
+Phone: ${formData.phone}
+How can we help: ${formData.help}
+
+Message:
+${formData.message}
+                    `.trim();
+
+                    // Open email client
+                    window.location.href = `mailto:contact@bmgsolutions.tech?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    
+                    // Wait a bit before resetting the form to ensure email client has opened
+                    setTimeout(() => {
+                        setFormData({
+                            name: '',
+                            company: '',
+                            email: '',
+                            phone: '',
+                            help: '',
+                            message: ''
+                        });
+                        setIsSubmitting(false);
+                    }, 1000);
+                } else {
+                    setIsSubmitting(false);
+                }
+            };
+
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+                // Clear error when user starts typing
+                if (errors[name]) {
+                    setErrors(prev => ({
+                        ...prev,
+                        [name]: ''
+                    }));
+                }
+            };
+
+            return (
+                <div className="bg-gray-50 py-16 border-t border-gray-100" id="contact">
+                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center">
+                            <h2 className="text-2xl font-semibold text-gray-900">
+                                {content[language].title}
+                            </h2>
+                            <p className="mt-3 text-sm text-gray-600 max-w-2xl mx-auto">
+                                {content[language].subtitle}
+                            </p>
+                        </div>
+                        <div className="mt-10">
+                            <form onSubmit={handleSubmit} className="bg-white p-6 shadow-sm rounded-sm grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-xs font-medium text-gray-700">
+                                        {content[language].name} *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            className={`py-2 px-3 block w-full text-sm bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-200'} rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white`}
+                                        />
+                                        {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="company" className="block text-xs font-medium text-gray-700">
+                                        {content[language].company}
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            id="company"
+                                            value={formData.company}
+                                            onChange={handleChange}
+                                            className="py-2 px-3 block w-full text-sm bg-gray-50 border border-gray-200 rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-xs font-medium text-gray-700">
+                                        {content[language].email} *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className={`py-2 px-3 block w-full text-sm bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-gray-200'} rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white`}
+                                        />
+                                        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="phone" className="block text-xs font-medium text-gray-700">
+                                        {content[language].phone} *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            id="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            className={`py-2 px-3 block w-full text-sm bg-gray-50 border ${errors.phone ? 'border-red-500' : 'border-gray-200'} rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white`}
+                                        />
+                                        {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-2">
+                                    <label htmlFor="help" className="block text-xs font-medium text-gray-700">
+                                        {content[language].help} *
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+                                            type="text"
+                                            name="help"
+                                            id="help"
+                                            value={formData.help}
+                                            onChange={handleChange}
+                                            className={`py-2 px-3 block w-full text-sm bg-gray-50 border ${errors.help ? 'border-red-500' : 'border-gray-200'} rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white`}
+                                        />
+                                        {errors.help && <p className="mt-1 text-xs text-red-500">{errors.help}</p>}
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-2">
+                                    <label htmlFor="message" className="block text-xs font-medium text-gray-700">
+                                        {content[language].message} *
+                                    </label>
+                                    <div className="mt-1">
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            rows="4"
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            className={`py-2 px-3 block w-full text-sm bg-gray-50 border ${errors.message ? 'border-red-500' : 'border-gray-200'} rounded-sm focus:ring-1 focus:ring-red-500 focus:border-red-500 focus:bg-white`}
+                                        ></textarea>
+                                        {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-2 mt-2">
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className={`inline-flex justify-center py-2 px-4 text-xs font-medium rounded-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-500 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    >
+                                        {isSubmitting ? '...' : content[language].submit}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function IndustryApplications() {
+            const { language } = React.useContext(LanguageContext);
+            const content = {
+                en: {
+                    title: 'Across Industries - Diverse Use Cases',
+                    subtitle: 'Our solutions are trusted across various industries',
+                    industries: [
+                        {
+                            id: 'ekyc',
+                            name: 'eKYC',
+                            title: 'eKYC - Online Customer Verification',
+                            description: 'Utilizing OCR products, face matching, and fraud detection to provide a comprehensive online verification solution that ensures security and delivers an excellent customer experience.',
+                            image: '/images/ekyc.jpg',
+                            applications: ['Insurance', 'Smart Office', 'Content Publishing']
+                        },
+                        {
+                            id: 'insurance',
+                            name: 'Insurance',
+                            title: 'Insurance Document Processing',
+                            description: 'Automated processing of insurance documents using OCR and AI technologies for faster claim processing and reduced manual work.',
+                            image: '/images/insurance.jpg',
+                            applications: ['Claims Processing', 'Policy Management', 'Customer Onboarding']
+                        },
+                        {
+                            id: 'smart-office',
+                            name: 'Smart Office',
+                            title: 'Smart Office Solutions',
+                            description: 'Intelligent office automation solutions using face recognition and document processing technologies.',
+                            image: '/images/office.jpg',
+                            applications: ['Access Control', 'Document Management', 'Attendance System']
+                        },
+                        {
+                            id: 'content',
+                            name: 'Content Publishing',
+                            title: 'Content Management & Publishing',
+                            description: 'Advanced content processing and management solutions for publishers and content creators.',
+                            image: '/images/content-publishing.jpg', // News portal on tablet
+                            applications: ['Document Digitization', 'Content Analysis', 'Automated Tagging']
+                        }
+                    ]
+                },
+                vi: {
+                    title: 'Trên khắp các ngành công nghiệp - Đa dạng các trường hợp sử dụng',
+                    subtitle: 'Giải pháp của chúng tôi được tin dùng trong nhiều ngành công nghiệp',
+                    industries: [
+                        {
+                            id: 'ekyc',
+                            name: 'eKYC',
+                            title: 'eKYC - Định danh khách hàng trực tuyến',
+                            description: 'Ứng dụng các sản phẩm OCR, so khớp khuôn mặt, phát hiện giả mạo để cung cấp một giải pháp định danh trực tuyến hoàn chỉnh, an toàn và mang lại trải nghiệm tuyệt vời cho khách hàng.',
+                            image: '/images/ekyc.jpg', // Woman with face recognition points
+                            applications: ['Bảo hiểm', 'Văn phòng thông minh', 'Xuất bản nội dung']
+                        },
+                        {
+                            id: 'insurance',
+                            name: 'Bảo hiểm',
+                            title: 'Xử lý hồ sơ bảo hiểm',
+                            description: 'Tự động hóa xử lý hồ sơ bảo hiểm sử dụng công nghệ OCR và AI để tăng tốc độ xử lý yêu cầu bồi thường và giảm công việc thủ công.',
+                            image: '/images/surface-laptop.jpg', // Person using Surface laptop
+                            applications: ['Xử lý yêu cầu bồi thường', 'Quản lý hợp đồng', 'Tiếp nhận khách hàng']
+                        },
+                        {
+                            id: 'smart-office',
+                            name: 'Văn phòng thông minh',
+                            title: 'Giải pháp văn phòng thông minh',
+                            description: 'Giải pháp tự động hóa văn phòng thông minh sử dụng công nghệ nhận diện khuôn mặt và xử lý tài liệu.',
+                            image: '/images/meling-tower.jpg', // Meling Point Tower building
+                            applications: ['Kiểm soát truy cập', 'Quản lý tài liệu', 'Hệ thống chấm công']
+                        },
+                        {
+                            id: 'content',
+                            name: 'Xuất bản nội dung',
+                            title: 'Quản lý và xuất bản nội dung',
+                            description: 'Giải pháp xử lý và quản lý nội dung tiên tiến cho nhà xuất bản và người sáng tạo nội dung.',
+                            image: '/images/news-portal.jpg', // News portal on tablet
+                            applications: ['Số hóa tài liệu', 'Phân tích nội dung', 'Gắn thẻ tự động']
+                        }
+                    ]
+                }
+            };
+
+            const [selectedIndustry, setSelectedIndustry] = React.useState('ekyc');
+            const industry = content[language].industries.find(ind => ind.id === selectedIndustry);
+
+            return (
+                <div className="py-16 bg-gray-50" id="solutions">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-gray-900">
+                                {content[language].title}
+                            </h2>
+                            <p className="mt-4 text-lg text-gray-500">
+                                {content[language].subtitle}
+                            </p>
+                        </div>
+                        
+                        <div className="flex flex-col md:flex-row gap-8">
+                            {/* Industry List */}
+                            <div className="w-full md:w-1/4">
+                                <div className="space-y-2">
+                                    {content[language].industries.map(ind => (
+                                        <div
+                                            key={ind.id}
+                                            className={`p-4 cursor-pointer rounded-lg transition-all ${
+                                                selectedIndustry === ind.id
+                                                    ? 'bg-red-50 text-red-600 font-medium'
+                                                    : 'hover:bg-gray-100'
+                                            }`}
+                                            onClick={() => setSelectedIndustry(ind.id)}
+                                        >
+                                            {ind.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Industry Details */}
+                            <div className="w-full md:w-3/4">
+                                <div className="bg-white rounded-lg shadow-sm p-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                                {industry.title}
+                                            </h3>
+                                            <p className="text-gray-600 mb-6">
+                                                {industry.description}
+                                            </p>
+                                            <div>
+                                                <h4 className="text-lg font-medium text-gray-900 mb-3">
+                                                    {language === 'en' ? 'Applications' : 'Ứng dụng'}
+                                                </h4>
+                                                <ul className="space-y-2">
+                                                    {industry.applications.map((app, index) => (
+                                                        <li key={index} className="flex items-center text-gray-600">
+                                                            <span className="mr-2">•</span>
+                                                            {app}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            <button 
+                                                onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                                                className="mt-6 text-xs text-red-600 hover:text-red-700 transition-colors"
+                                            >
+                                                {language === 'en' ? 'Contact us' : 'Liên hệ'} →
+                                            </button>
+                                        </div>
+                                        <div className="relative h-64 md:h-auto">
+                                            <img
+                                                src={industry.image}
+                                                alt={industry.title}
+                                                className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function AboutUs() {
+            const { language } = React.useContext(LanguageContext);
+            
+            const content = {
+                en: {
+                    title: 'About BMG Solutions',
+                    description: 'We are a leading provider of AI and Computer Vision solutions, helping businesses transform their operations with cutting-edge technology.',
+                    features: [
+                        {
+                            title: 'Expert Team',
+                            description: 'Our team consists of experienced professionals in AI, Computer Vision, and Software Engineering.'
+                        },
+                        {
+                            title: 'Proven Solutions',
+                            description: 'We have successfully delivered solutions to numerous enterprises across various industries.'
+                        },
+                        {
+                            title: 'Innovation Focus',
+                            description: 'We continuously invest in research and development to stay at the forefront of technology.'
+                        }
+                    ]
+                },
+                vi: {
+                    title: 'Về BMG Solutions',
+                    description: 'Chúng tôi là nhà cung cấp hàng đầu về giải pháp AI và Computer Vision, giúp doanh nghiệp chuyển đổi hoạt động với công nghệ tiên tiến.',
+                    features: [
+                        {
+                            title: 'Đội ngũ Chuyên gia',
+                            description: 'Đội ngũ của chúng tôi bao gồm các chuyên gia giàu kinh nghiệm trong lĩnh vực AI, Computer Vision và Kỹ thuật Phần mềm.'
+                        },
+                        {
+                            title: 'Giải pháp Đã được Chứng minh',
+                            description: 'Chúng tôi đã triển khai thành công giải pháp cho nhiều doanh nghiệp trong các ngành khác nhau.'
+                        },
+                        {
+                            title: 'Tập trung vào Đổi mới',
+                            description: 'Chúng tôi liên tục đầu tư vào nghiên cứu và phát triển để duy trì vị trí tiên phong về công nghệ.'
+                        }
+                    ]
+                }
+            };
+
+            return (
+                <div id="about" className="py-24 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="lg:text-center">
+                            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                                {content[language].title}
+                            </h2>
+                            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                                {content[language].description}
+                            </p>
+                        </div>
+
+                        <div className="mt-20">
+                            <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                                {content[language].features.map((feature, index) => (
+                                    <div key={index} className="relative">
+                                        <dt>
+                                            <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-red-600 text-white">
+                                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                                </svg>
+                                            </div>
+                                            <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.title}</p>
+                                        </dt>
+                                        <dd className="mt-2 ml-16 text-base text-gray-500">
+                                            {feature.description}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Footer() {
+            const { language } = React.useContext(LanguageContext);
+            
+            const content = {
+                en: {
+                    products: {
+                        title: 'Products',
+                        items: [
+                            'Digital Recognition',
+                            'Face Recognition',
+                            'Image Processing'
+                        ]
+                    },
+                    solutions: {
+                        title: 'Solutions',
+                        items: [
+                            'eKYC',
+                            'Insurtech',
+                            'Intelligent Office',
+                            'Content Publishing'
+                        ]
+                    },
+
+                    about: {
+                        title: 'About Us',
+                        items: [
+                            'About Us',
+                            'Contact'
+                        ]
+                    },
+                    contact: {
+                        office: 'Office:',
+                        address: '60 Street No. 19, Binh Hung Hoa A Ward, Binh Tan District, Ho Chi Minh City, Vietnam',
+                        phone: '0904456555'
+                    }
+                },
+                vi: {
+                    products: {
+                        title: 'Sản phẩm',
+                        items: [
+                            'Nhận diện ký tự',
+                            'Nhận diện khuôn mặt',
+                            'Nhận diện hình ảnh'
+                        ]
+                    },
+                    solutions: {
+                        title: 'Giải pháp',
+                        items: [
+                            'eKYC',
+                            'Insurtech',
+                            'Intelligent Office',
+                            'Xuất bản nội dung'
+                        ]
+                    },
+
+                    about: {
+                        title: 'Về chúng tôi',
+                        items: [
+                            'Về chúng tôi',
+                            'Liên hệ'
+                        ]
+                    },
+                    contact: {
+                        office: 'Văn phòng:',
+                        address: '60 đường số 19, Phường Bình Hưng Hòa A, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam',
+                        phone: '0904456555'
+                    }
+                }
+            };
+
+            return (
+                <footer className="bg-white pt-16 pb-12">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* Logo */}
+                        <div className="mb-12 text-center">
+                            <img 
+                                src="/logo.png" 
+                                alt="BMG Solutions" 
+                                className="h-8 w-auto mx-auto"
+                            />
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                            {/* Contact Info */}
+                            <div className="col-span-1 lg:col-span-2">
+                                <div className="space-y-3 text-xs text-gray-600">
+                                    <div>
+                                        <p className="font-medium mb-1">{content[language].contact.office}</p>
+                                        <p className="max-w-[240px] leading-relaxed">{content[language].contact.address}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium mb-1">Phone:</p>
+                                        <a href={`tel:${content[language].contact.phone}`} className="hover:text-red-600">
+                                            {content[language].contact.phone}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Products */}
+                            <div>
+                                <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase mb-3">
+                                    {content[language].products.title}
+                                </h3>
+                                <ul className="space-y-2">
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('products');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Digital Recognition' : 'Nhận diện ký tự'}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('products');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Face Recognition' : 'Nhận diện khuôn mặt'}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('products');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Image Processing' : 'Xử lý hình ảnh'}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Solutions */}
+                            <div>
+                                <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase mb-3">
+                                    {content[language].solutions.title}
+                                </h3>
+                                <ul className="space-y-2">
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('solutions');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            eKYC
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('solutions');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            Insurtech
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('solutions');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            Intelligent Office
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('solutions');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Content Publishing' : 'Xuất bản nội dung'}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* About */}
+                            <div>
+                                <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase mb-3">
+                                    {content[language].about.title}
+                                </h3>
+                                <ul className="space-y-2">
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('about');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'About Us' : 'Về chúng tôi'}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                const element = document.getElementById('contact');
+                                                if (element) {
+                                                    const headerOffset = 80;
+                                                    const elementPosition = element.getBoundingClientRect().top;
+                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                                    window.scrollTo({
+                                                        top: offsetPosition,
+                                                        behavior: "smooth"
+                                                    });
+                                                }
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Contact' : 'Liên hệ'}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Bottom Section */}
+                        <div className="mt-12 pt-8 border-t border-gray-200">
+                            <div className="flex justify-between items-center">
+                                <p className="text-xs text-gray-400">
+                                    Copyright ©2024 by BMG Investment - Consulting JSC. All Rights Reserved
+                                </p>
+                                <div className="flex space-x-6">
+                                    <a href="#" className="text-gray-400 hover:text-gray-500">
+                                        <span className="sr-only">Facebook</span>
+                                        <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" className="text-gray-400 hover:text-gray-500">
+                                        <span className="sr-only">LinkedIn</span>
+                                        <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
