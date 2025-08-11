@@ -94,6 +94,24 @@
             scroll-padding-top: 80px;
         }
         
+        /* Mobile header adjustments */
+        @media (max-width: 640px) {
+            html {
+                scroll-padding-top: 64px;
+            }
+        }
+        
+        /* Horizontal scroll for mobile tabs */
+        .overflow-x-auto {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .overflow-x-auto::-webkit-scrollbar {
+            display: none;
+        }
+        
         .nav-item {
             font-weight: 600;
             position: relative;
@@ -618,19 +636,19 @@
                     </div>
 
                     {/* Main Navigation */}
-                    <nav className="bg-white">
+                    <nav className="bg-white shadow-sm">
                         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                            <div className="flex justify-between h-20">
+                            <div className="flex justify-between items-center h-16 sm:h-20">
                                 <div className="flex items-center">
                                     <a href="/" className="flex-shrink-0">
                                         <img 
                                             src="/logo.png"
                                             alt="BMG Solutions"
-                                            className="h-12 w-auto"
+                                            className="h-8 sm:h-12 w-auto"
                                         />
                                     </a>
                                 </div>
-                                <div className="flex items-center space-x-8">
+                                <div className="hidden sm:flex items-center space-x-8">
                                     <a 
                                         href="/" 
                                         className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
@@ -685,6 +703,89 @@
                                             }
                                         }}
                                         className="text-gray-900 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors"
+                                    >
+                                        {content[language].nav.about}
+                                    </button>
+                                </div>
+                                
+                                {/* Mobile menu button */}
+                                <div className="sm:hidden">
+                                    <button 
+                                        onClick={() => {
+                                            const mobileMenu = document.getElementById('mobile-menu');
+                                            if (mobileMenu) {
+                                                mobileMenu.classList.toggle('hidden');
+                                            }
+                                        }}
+                                        className="text-gray-900 hover:text-red-600 p-2"
+                                    >
+                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            {/* Mobile menu */}
+                            <div id="mobile-menu" className="hidden sm:hidden border-t border-gray-200">
+                                <div className="px-2 pt-2 pb-3 space-y-1">
+                                    <a 
+                                        href="/" 
+                                        className="block px-3 py-2 text-sm font-medium text-gray-900 hover:text-red-600 transition-colors"
+                                    >
+                                        {content[language].nav.home}
+                                    </a>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('products');
+                                            if (element) {
+                                                const rect = element.getBoundingClientRect();
+                                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                const targetPosition = rect.top + scrollTop - 80;
+                                                window.scrollTo({
+                                                    top: targetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                            document.getElementById('mobile-menu').classList.add('hidden');
+                                        }}
+                                        className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-900 hover:text-red-600 transition-colors"
+                                    >
+                                        {content[language].nav.products}
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('solutions');
+                                            if (element) {
+                                                const rect = element.getBoundingClientRect();
+                                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                const targetPosition = rect.top + scrollTop - 80;
+                                                window.scrollTo({
+                                                    top: targetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                            document.getElementById('mobile-menu').classList.add('hidden');
+                                        }}
+                                        className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-900 hover:text-red-600 transition-colors"
+                                    >
+                                        {content[language].nav.solutions}
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            const element = document.getElementById('about');
+                                            if (element) {
+                                                const rect = element.getBoundingClientRect();
+                                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                const targetPosition = rect.top + scrollTop - 80;
+                                                window.scrollTo({
+                                                    top: targetPosition,
+                                                    behavior: "smooth"
+                                                });
+                                            }
+                                            document.getElementById('mobile-menu').classList.add('hidden');
+                                        }}
+                                        className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-900 hover:text-red-600 transition-colors"
                                     >
                                         {content[language].nav.about}
                                     </button>
@@ -767,17 +868,19 @@
                                 {language === 'en' ? 'Comprehensive suite of AI-powered vision solutions optimized for enterprise deployment' : 'Bộ giải pháp thị giác máy tính toàn diện được tối ưu hóa cho triển khai doanh nghiệp'}
                             </p>
                         </div>
-                        <div className="flex border-b mb-8">
-                            {categories.map(category => (
-                                <div
-                                    key={category.id}
-                                    data-category={category.id}
-                                    className={`category-tab text-sm ${activeCategory === category.id ? 'active font-bold' : ''}`}
-                                    onClick={() => setActiveCategory(category.id)}
-                                >
-                                    {category.name}
-                                </div>
-                            ))}
+                        <div className="overflow-x-auto border-b mb-8">
+                            <div className="flex min-w-max">
+                                {categories.map(category => (
+                                    <div
+                                        key={category.id}
+                                        data-category={category.id}
+                                        className={`category-tab text-sm whitespace-nowrap ${activeCategory === category.id ? 'active font-bold' : ''}`}
+                                        onClick={() => setActiveCategory(category.id)}
+                                    >
+                                        {category.name}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                             {products.map((product, index) => (
@@ -1191,7 +1294,28 @@ ${formData.message}
                         <div className="flex flex-col md:flex-row gap-8">
                             {/* Industry List */}
                             <div className="w-full md:w-1/4">
-                                <div className="space-y-2">
+                                {/* Mobile horizontal scroll */}
+                                <div className="md:hidden overflow-x-auto mb-6">
+                                    <div className="flex space-x-2 min-w-max">
+                                        {content[language].industries.map(ind => (
+                                            <div
+                                                key={ind.id}
+                                                data-industry={ind.id}
+                                                className={`industry-tab px-4 py-2 cursor-pointer rounded-lg transition-all whitespace-nowrap ${
+                                                    selectedIndustry === ind.id
+                                                        ? 'bg-red-50 text-red-600 font-medium'
+                                                        : 'bg-gray-100 hover:bg-gray-200'
+                                                }`}
+                                                onClick={() => setSelectedIndustry(ind.id)}
+                                            >
+                                                {ind.name}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                {/* Desktop vertical list */}
+                                <div className="hidden md:block space-y-2">
                                     {content[language].industries.map(ind => (
                                         <div
                                             key={ind.id}
