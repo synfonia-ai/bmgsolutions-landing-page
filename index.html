@@ -524,6 +524,7 @@
         function App() {
             const [language, setLanguage] = React.useState('en');
             const [activeCategory, setActiveCategory] = React.useState('featured');
+            const [selectedIndustry, setSelectedIndustry] = React.useState('ekyc');
 
             // Load saved language on mount
             React.useEffect(() => {
@@ -547,7 +548,7 @@
             }, [language]);
 
             return (
-                <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory }}>
+                <LanguageContext.Provider value={{ language, setLanguage, activeCategory, setActiveCategory, selectedIndustry, setSelectedIndustry }}>
                                     <div className="min-h-screen">
                     <Navbar />
                     <Hero />
@@ -770,6 +771,7 @@
                             {categories.map(category => (
                                 <div
                                     key={category.id}
+                                    data-category={category.id}
                                     className={`category-tab text-sm ${activeCategory === category.id ? 'active font-bold' : ''}`}
                                     onClick={() => setActiveCategory(category.id)}
                                 >
@@ -1092,7 +1094,7 @@ ${formData.message}
         }
 
         function IndustryApplications() {
-            const { language } = React.useContext(LanguageContext);
+            const { language, selectedIndustry, setSelectedIndustry } = React.useContext(LanguageContext);
             const content = {
                 en: {
                     title: 'Across Industries - Diverse Use Cases',
@@ -1172,7 +1174,6 @@ ${formData.message}
                 }
             };
 
-            const [selectedIndustry, setSelectedIndustry] = React.useState('ekyc');
             const industry = content[language].industries.find(ind => ind.id === selectedIndustry);
 
             return (
@@ -1194,7 +1195,8 @@ ${formData.message}
                                     {content[language].industries.map(ind => (
                                         <div
                                             key={ind.id}
-                                            className={`p-4 cursor-pointer rounded-lg transition-all ${
+                                            data-industry={ind.id}
+                                            className={`industry-tab p-4 cursor-pointer rounded-lg transition-all ${
                                                 selectedIndustry === ind.id
                                                     ? 'bg-red-50 text-red-600 font-medium'
                                                     : 'hover:bg-gray-100'
@@ -1333,7 +1335,7 @@ ${formData.message}
         }
 
         function Footer() {
-            const { language } = React.useContext(LanguageContext);
+            const { language, setActiveCategory, setSelectedIndustry } = React.useContext(LanguageContext);
             
             const content = {
                 en: {
@@ -1440,16 +1442,41 @@ ${formData.message}
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('products');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setActiveCategory('featured');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('products');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
+                                            }}
+                                            className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                                        >
+                                            {language === 'en' ? 'Featured Products' : 'Sản phẩm tiêu biểu'}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button 
+                                            onClick={() => {
+                                                setActiveCategory('digital');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('products');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
@@ -1459,16 +1486,19 @@ ${formData.message}
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('products');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setActiveCategory('face');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('products');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
@@ -1478,16 +1508,19 @@ ${formData.message}
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('products');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setActiveCategory('image');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('products');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
@@ -1506,16 +1539,19 @@ ${formData.message}
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('solutions');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setSelectedIndustry('ekyc');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('solutions');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
@@ -1525,54 +1561,63 @@ ${formData.message}
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('solutions');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setSelectedIndustry('insurance');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('solutions');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
-                                            Insurtech
+                                            {language === 'en' ? 'Insurance' : 'Bảo hiểm'}
                                         </button>
                                     </li>
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('solutions');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setSelectedIndustry('smart-office');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('solutions');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
-                                            Intelligent Office
+                                            {language === 'en' ? 'Smart Office' : 'Văn phòng thông minh'}
                                         </button>
                                     </li>
                                     <li>
                                         <button 
                                             onClick={() => {
-                                                const element = document.getElementById('solutions');
-                                                if (element) {
-                                                    const headerOffset = 80;
-                                                    const elementPosition = element.getBoundingClientRect().top;
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: "smooth"
-                                                    });
-                                                }
+                                                setSelectedIndustry('content');
+                                                requestAnimationFrame(() => {
+                                                    const element = document.getElementById('solutions');
+                                                    if (element) {
+                                                        const rect = element.getBoundingClientRect();
+                                                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                                                        const targetPosition = rect.top + scrollTop - 100;
+                                                        window.scrollTo({
+                                                            top: targetPosition,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                });
                                             }}
                                             className="text-xs text-gray-600 hover:text-red-600 transition-colors"
                                         >
