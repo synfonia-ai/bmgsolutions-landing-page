@@ -573,7 +573,6 @@
                     <Services />
                     <IndustryApplications />
                     <AboutUs />
-                    <Clients />
                     <Contact />
                     <Footer />
                 </div>
@@ -641,11 +640,7 @@
                             <div className="flex justify-between items-center h-16 sm:h-20">
                                 <div className="flex items-center">
                                     <a href="/" className="flex-shrink-0">
-                                        <img 
-                                            src="/logo.png"
-                                            alt="BMG Solutions"
-                                            className="h-8 sm:h-12 w-auto"
-                                        />
+                                        <span className="text-xl sm:text-2xl font-bold text-gray-900">BMG Solutions</span>
                                     </a>
                                 </div>
                                 <div className="hidden sm:flex items-center space-x-8">
@@ -904,53 +899,7 @@
             );
         }
 
-        function Clients() {
-            const { language } = React.useContext(LanguageContext);
-            const content = {
-                en: {
-                    title: 'Trusted by Industry Leaders',
-                    subtitle: 'Companies that trust our expertise'
-                },
-                vi: {
-                    title: 'Được Tin Tưởng Bởi Các Doanh Nghiệp Hàng Đầu',
-                    subtitle: 'Các công ty tin tưởng vào chuyên môn của chúng tôi'
-                }
-            };
 
-            const clients = [
-                { name: 'VPBank', logo: '🏦' },
-                { name: 'Techcombank', logo: '🏦' },
-                { name: 'VIB', logo: '🏦' },
-                { name: 'MoMo', logo: '📱' },
-                { name: 'ZaloPay', logo: '📱' },
-                { name: 'VNPay', logo: '💳' }
-            ];
-
-            return (
-                <div className="bg-gray-50 py-24">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center">
-                            <h2 className="text-3xl font-extrabold text-gray-900">
-                                {content[language].title}
-                            </h2>
-                            <p className="mt-4 text-lg text-gray-500">
-                                {content[language].subtitle}
-                            </p>
-                        </div>
-                        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
-                            {clients.map((client, index) => (
-                                <div key={index} className="col-span-1 flex justify-center">
-                                    <div className="text-center">
-                                        <div className="text-4xl mb-2">{client.logo}</div>
-                                        <div className="text-sm font-medium text-gray-900">{client.name}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
 
         function Contact() {
             const { language } = React.useContext(LanguageContext);
@@ -1531,13 +1480,9 @@ ${formData.message}
             return (
                 <footer className="bg-white pt-16 pb-12">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        {/* Logo */}
+                        {/* Company Name */}
                         <div className="mb-12 text-center">
-                            <img 
-                                src="/logo.png" 
-                                alt="BMG Solutions" 
-                                className="h-8 w-auto mx-auto"
-                            />
+                            <span className="text-2xl font-bold text-gray-900">BMG Solutions</span>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
